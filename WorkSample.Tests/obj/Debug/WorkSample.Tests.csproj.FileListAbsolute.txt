@@ -42,3 +42,47 @@ c:\users\nieko\documents\visual studio 2013\Projects\WorkSample\WorkSample.Tests
 c:\users\nieko\documents\visual studio 2013\Projects\WorkSample\WorkSample.Tests\obj\Debug\WorkSample.Tests.csprojResolveAssemblyReference.cache
 c:\users\nieko\documents\visual studio 2013\Projects\WorkSample\WorkSample.Tests\obj\Debug\WorkSample.Tests.dll
 c:\users\nieko\documents\visual studio 2013\Projects\WorkSample\WorkSample.Tests\obj\Debug\WorkSample.Tests.pdb
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\WorkSample.Tests.dll.config
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\WorkSample.Tests.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\WorkSample.Tests.pdb
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Newtonsoft.Json.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Helpers.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Mvc.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Razor.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.WebPages.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\WorkSample.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Optimization.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Owin.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\EntityFramework.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Security.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\WorkSample.pdb
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Newtonsoft.Json.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Helpers.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Mvc.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Razor.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.WebPages.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\System.Web.Optimization.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\EntityFramework.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Security.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Dev\WorkSample\WorkSample.Tests\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+C:\Dev\WorkSample\WorkSample.Tests\obj\Debug\WorkSample.Tests.csprojResolveAssemblyReference.cache
+C:\Dev\WorkSample\WorkSample.Tests\obj\Debug\WorkSample.Tests.dll
+C:\Dev\WorkSample\WorkSample.Tests\obj\Debug\WorkSample.Tests.pdb
