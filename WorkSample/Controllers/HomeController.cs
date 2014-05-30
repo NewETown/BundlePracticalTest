@@ -26,5 +26,13 @@ namespace WorkSample.Controllers
 
             return View();
         }
+
+        public ActionResult Order()
+        {
+            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "order", });
+            ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
+
+            return View();
+        }
     }
 }

@@ -28,5 +28,6 @@ namespace WorkSample.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }
