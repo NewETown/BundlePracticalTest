@@ -14,13 +14,35 @@ namespace WorkSample.Controllers
 {
     public class OrderController : ApiController
     {
+        public class JsonOrder
+        {
+            public int orderId { get; set; }
+            public string product { get; set; }
+            public string productType { get; set; }
+            public string color { get; set; }
+            public string size { get; set; }
+            public decimal cost { get; set; }
+        }
         // private OrdersContext db = new OrdersContext();
         private Entities ent = new Entities();
 
         // GET api/Order
-        public IQueryable<Order> GetOrders()
+        public IQueryable<JsonOrder> GetOrders()
         {
-            return ent.Orders.AsQueryable();
+            IQueryable<Order> orders = ent.Orders.AsQueryable();
+            List<JsonOrder> jsonOrders = new List<JsonOrder>();
+            foreach(var order in orders)
+            {
+                JsonOrder jsonOrder = new JsonOrder();
+                jsonOrder.color = ent.Colors.FirstOrDefault(c => c.Id == order.Color_Id).Name;
+                jsonOrder.product = ent.Products.FirstOrDefault(p => p.Id == order.Product_Id).Name;
+                jsonOrder.cost = ent.Products.FirstOrDefault(p => p.Id == order.Product_Id).Cost;
+                jsonOrder.productType = ent.ProductTypes.FirstOrDefault(t => t.Id == order.ProductType_Id).Type;
+                jsonOrder.size = ent.Sizes.FirstOrDefault(s => s.Id == order.Size_Id).Category;
+                jsonOrder.orderId = order.Id;
+                jsonOrders.Add(jsonOrder);
+            }
+            return jsonOrders.AsQueryable();
         }
 
         // GET api/Order/5

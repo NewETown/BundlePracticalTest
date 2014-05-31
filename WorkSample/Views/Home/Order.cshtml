@@ -19,28 +19,32 @@
         <div class="row">
             <div class="col-md-1">
                 <!-- Do these need to be $data.Product.Name()? etc...-->
-                <p data-bind="text: $data.Id"></p>
+                <p data-bind="text: $data.orderId"></p>
             </div>
             <div class="col-md-3">
-                <p data-bind="text: $data.Product"></p>
+                <p data-bind="text: $data.product"></p>
             </div>
             <div class="col-md-2">
-                <p data-bind="text: $data.Product"></p>
+                <p data-bind="text: $data.cost"></p>
             </div>
             <div class="col-md-2">
-                <p data-bind="text: $data.ProductType"></p>
+                <p data-bind="text: $data.productType"></p>
             </div>
             <div class="col-md-2">
-                <p data-bind="text: $data.Color"></p>
+                <p data-bind="text: $data.color"></p>
             </div>
             <div class="col-md-2">
-                <p data-bind="text: $data.Size"></p>
+                <p data-bind="text: $data.size"></p>
             </div>
         </div>
-    </div>
-    <div>
-        <input type="button" value="Update" data-bind="click: $root.update" />
-        <input type="button" value="Remove" data-bind="click: $root.remove" />
+        <div class="row">
+            <div class="col-md-offset-9 col-md-2">
+                <ul class="list-inline">
+                    <li><input type="button" value="Update" data-bind="click: $root.update" /></li>
+                    <li><input type="button" value="Remove" data-bind="click: $root.remove" /></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div class="float-right">
@@ -49,6 +53,7 @@
         <form id="addOrder" data-bind="submit: create">
             @Html.ValidationSummary(true)
             <fieldset>
+                <!-- This will be created after the objects start to show properly -->
                 @Html.EditorFor(model => model, new { htmlAttributes = new { @class = "form-control" }, })
                 <p>
                     <input type="submit" value="Save" />
