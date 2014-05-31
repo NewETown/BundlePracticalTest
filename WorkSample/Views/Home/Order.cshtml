@@ -57,10 +57,10 @@
         <div class="col-md-12">
             <h2>Add New Order</h2>
             <form id="addOrder" class="form-inline" role="form" data-bind="submit: createOrder">
-                <select class="form-control" data-bind="options: products, optionsText: 'productName', optionsCaption: 'Product Name', value: selectedProductCost"></select>
-                <label>$</label><label data-bind="text: selectedProductCost() ? selectedProductCost().productCost : '0.00'"></label>
-                <select class="form-control" data-bind="options: productColors, optionsText: 'color', optionsCaption: 'Product Color', value: selectedProductColor"></select>
-                <select class="form-control" data-bind="options: productSizes, optionsText: 'size', optionsCaption: 'Product Size', value: selectedProductSize"></select>
+                <select id="productName" class="form-control" data-bind="options: products, optionsText: 'productName', optionsCaption: 'Product Name', value: selectedProductCost"></select>
+                <label>$</label><label id="orderCost" data-bind="text: selectedProductCost() ? selectedProductCost().productCost : '0.00'"></label>
+                <select id="productColor" class="form-control" data-bind="options: productColors, optionsText: 'color', optionsCaption: 'Product Color', value: selectedProductColor"></select>
+                <select id="productSize" class="form-control" data-bind="options: productSizes, optionsText: 'size', optionsCaption: 'Product Size', value: selectedProductSize"></select>
                 <div class="form-group">
                     <input type="submit" value="Add" />
                 </div>
@@ -153,6 +153,10 @@
                         success: function (o) {
                             or["orderId"] = o.Id;
                             self.orders.push(or);
+                            $('select#productName option')[0].selected = true;
+                            $('select#productColor option')[0].selected = true;
+                            $('select#productSize option')[0].selected = true;
+                            $('#orderCost').text('0.00');
                         }
                     });
                 }
