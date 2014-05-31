@@ -17,9 +17,20 @@ namespace WorkSample.Controllers
         private Entities ent = new Entities();
 
         // GET api/Product
-        public IQueryable<Product> GetProducts()
+        public IQueryable<JsonProduct> GetProducts()
         {
-            return ent.Products.AsQueryable();
+            IQueryable<Product> products = ent.Products.AsQueryable();
+            List<JsonProduct> jsonProducts = new List<JsonProduct>();
+            foreach (var product in products)
+            {
+                JsonProduct jsonProduct = new JsonProduct();
+                var prod = ent.Products.FirstOrDefault(p => p.Id == product.Id);
+                jsonProduct.name = prod.Name;
+                jsonProduct.cost = prod.Cost;
+                jsonProduct.id = product.Id;
+                jsonProducts.Add(jsonProduct);
+            }
+            return jsonProducts.AsQueryable();
         }
 
         // GET api/Product/5
@@ -112,6 +123,13 @@ namespace WorkSample.Controllers
         private bool ProductExists(int id)
         {
             return ent.Products.Count(e => e.Id == id) > 0;
+        }
+
+        public class JsonProduct
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public decimal cost { get; set; }
         }
     }
 }

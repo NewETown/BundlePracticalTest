@@ -18,9 +18,18 @@ namespace WorkSample.Controllers
         private Entities ent = new Entities();
 
         // GET api/Color
-        public IQueryable<Color> GetColors()
+        public IQueryable<JsonColor> GetColors()
         {
-            return ent.Colors.AsQueryable();
+            IQueryable<Color> colors = ent.Colors.AsQueryable();
+            List<JsonColor> jsonColors = new List<JsonColor>();
+            foreach (var color in colors)
+            {
+                JsonColor jsonColor = new JsonColor();
+                jsonColor.color = ent.Colors.FirstOrDefault(p => p.Id == color.Id).Name;
+                jsonColor.id = color.Id;
+                jsonColors.Add(jsonColor);
+            }
+            return jsonColors.AsQueryable();
         }
 
         // GET api/Color/5
@@ -113,6 +122,12 @@ namespace WorkSample.Controllers
         private bool ColorExists(int id)
         {
             return ent.Colors.Count(e => e.Id == id) > 0;
+        }
+
+        public class JsonColor
+        {
+            public string color { get; set; }
+            public int id { get; set; }
         }
     }
 }

@@ -8,12 +8,12 @@
 
 <div class="content">
     <div class="row">
-        <div class="col-md-1">Order ID</div>
-        <div class="col-md-3">Product Name</div>
-        <div class="col-md-2">Cost ($)</div>
-        <div class="col-md-2">Product Type</div>
-        <div class="col-md-2">Color</div>
-        <div class="col-md-2">Size</div>
+        <div class="col-md-1"><strong>Order ID</strong></div>
+        <div class="col-md-3"><strong>Product Name</strong></div>
+        <div class="col-md-2"><strong>Cost ($)</strong></div>
+        <div class="col-md-2"><strong>Product Type</strong></div>
+        <div class="col-md-2"><strong>Color</strong></div>
+        <div class="col-md-2"><strong>Size</strong></div>
     </div>
     <div data-bind="foreach: orders">
         <div class="row">
@@ -33,63 +33,115 @@
             <div class="col-md-2">
                 <p data-bind="text: $data.color"></p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <p data-bind="text: $data.size"></p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-offset-9 col-md-2">
-                <ul class="list-inline">
-                    <li><input type="button" value="Update" data-bind="click: $root.update" /></li>
-                    <li><input type="button" value="Remove" data-bind="click: $root.remove" /></li>
-                </ul>
+            <div class="col-md-1">
+                <input type="button" value="Remove" data-bind="click: $root.remove" />
             </div>
         </div>
     </div>
 
-    <div class="float-right">
-        <h2>Add New Product</h2>
-        <p>Todo</p>
-        <form id="addOrder" data-bind="submit: create">
-            @Html.ValidationSummary(true)
-            <fieldset>
-                <!-- This will be created after the objects start to show properly -->
-                @Html.EditorFor(model => model, new { htmlAttributes = new { @class = "form-control" }, })
-                <p>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Add New Product</h2>
+            <form id="addOrder" class="form-inline" role="form" data-bind="submit: createProduct">
+                <div class="form-group">
+                    <label class="sr-only" for="productName">Product Name</label>
+                    <input type="text" class="form-control" id="productName" placeholder="Enter Product Name">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="productCost">Product Cost</label>
+                    <input type="text" class="form-control" id="productCost" placeholder="Enter Product Cost">
+                </div>
+                <select class="form-control">
+                    <option value="" disabled selected>Product Type</option>
+                    <!-- ko foreach: productTypes -->
+                    <option data-bind="text: $data.type"></option>
+                    <!-- /ko -->
+                </select>
+                <select class="form-control">
+                    <option value="" disabled selected>Product Color</option>
+                    <!-- ko foreach: productColors -->
+                    <option data-bind="text: $data.color"></option>
+                    <!-- /ko -->
+                </select>
+                <div class="form-group">
                     <input type="submit" value="Save" />
-                </p>
-            </fieldset>
-        </form>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Add New Order</h2>
+            <form id="addOrder" class="form-inline" role="form" data-bind="submit: createOrder">
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="exampleInputPassword2">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         // View-model will go here
         function OrderViewModel() {
             var self = this;
             self.orders = ko.observableArray();
+            self.productColors = ko.observableArray();
+            self.productTypes = ko.observableArray();
+            self.productSizes = ko.observableArray();
+            self.products = ko.observableArray();
 
-            var baseUri = '@ViewBag.ApiUrl';
+            var orderApi = '@ViewBag.OrderApi';
+            var productApi = '@ViewBag.ProductApi';
+            var productTypeApi = '@ViewBag.ProductTypeApi';
+            var colorApi = '@ViewBag.ColorApi';
+            var sizeApi = '@ViewBag.SizeApi';
 
-            self.create = function (formElement) {
-                $.post(baseUri, $(formElement).serialize(), null, "json")
+            self.createProduct = function (formElement) {
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(orderApi, $(formElement).serialize(), null, "json")
+                        .done(function (o) {
+                            self.orders.push(o);
+                        });
+                }
+            }
+
+            self.createOrder = function (formElement) {
+                $.post(orderApi, $(formElement).serialize(), null, "json")
                     .done(function (o) {
                         self.orders.push(o);
                     });
             }
 
             self.update = function (order) {
-                $.ajax({ type: "PUT", url: baseUri + '/' + order.Id, data: order });
+                $.ajax({ type: "PUT", url: orderApi + '/' + order.Id, data: order });
             }
 
             self.remove = function (order) {
                 // Remove from the server first
-                $.ajax({ type: "DELETE", url: baseUri + '/' + order.Id })
+                $.ajax({ type: "DELETE", url: orderApi + '/' + order.Id })
                     .done(function () { self.orders.remove(order); });
             }
 
-            $.getJSON(baseUri, self.orders);
+            $.getJSON(orderApi, self.orders);
+            $.getJSON(productApi, self.products);
+            $.getJSON(productTypeApi, self.productTypes);
+            $.getJSON(colorApi, self.productColors);
+            $.getJSON(sizeApi, self.productSizes);
         }
 
         $(document).ready(function () {

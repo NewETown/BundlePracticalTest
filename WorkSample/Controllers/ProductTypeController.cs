@@ -18,9 +18,18 @@ namespace WorkSample.Controllers
         private Entities ent = new Entities();
 
         // GET api/ProductType
-        public IQueryable<ProductType> GetProductTypes()
+        public IQueryable<JsonProductType> GetProductTypes()
         {
-            return ent.ProductTypes.AsQueryable();
+            IQueryable<ProductType> productTypes = ent.ProductTypes.AsQueryable();
+            List<JsonProductType> jsonProductTypes = new List<JsonProductType>();
+            foreach (var productType in productTypes)
+            {
+                JsonProductType jsonProductType = new JsonProductType();
+                jsonProductType.type = ent.ProductTypes.FirstOrDefault(p => p.Id == productType.Id).Type;
+                jsonProductType.id = productType.Id;
+                jsonProductTypes.Add(jsonProductType);
+            }
+            return jsonProductTypes.AsQueryable();
         }
 
         // GET api/ProductType/5
@@ -113,6 +122,12 @@ namespace WorkSample.Controllers
         private bool ProductTypeExists(int id)
         {
             return ent.ProductTypes.Count(e => e.Id == id) > 0;
+        }
+
+        public class JsonProductType
+        {
+            public int id { get; set; }
+            public string type { get; set; }
         }
     }
 }

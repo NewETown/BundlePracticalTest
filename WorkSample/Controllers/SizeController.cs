@@ -18,9 +18,18 @@ namespace WorkSample.Controllers
         private Entities ent = new Entities();
 
         // GET api/Size
-        public IQueryable<Size> GetSizes()
+        public IQueryable<JsonSize> GetSizes()
         {
-            return ent.Sizes.AsQueryable();
+            IQueryable<Size> sizes = ent.Sizes.AsQueryable();
+            List<JsonSize> jsonColors = new List<JsonSize>();
+            foreach (var size in sizes)
+            {
+                JsonSize jsonColor = new JsonSize();
+                jsonColor.size = ent.Sizes.FirstOrDefault(p => p.Id == size.Id).Category;
+                jsonColor.id = size.Id;
+                jsonColors.Add(jsonColor);
+            }
+            return jsonColors.AsQueryable();
         }
 
         // GET api/Size/5
@@ -113,6 +122,12 @@ namespace WorkSample.Controllers
         private bool SizeExists(int id)
         {
             return ent.Sizes.Count(e => e.Id == id) > 0;
+        }
+
+        public class JsonSize
+        {
+            public string size { get; set; }
+            public int id { get; set; }
         }
     }
 }

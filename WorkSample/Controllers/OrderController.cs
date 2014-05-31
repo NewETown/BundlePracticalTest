@@ -14,16 +14,6 @@ namespace WorkSample.Controllers
 {
     public class OrderController : ApiController
     {
-        public class JsonOrder
-        {
-            public int orderId { get; set; }
-            public string product { get; set; }
-            public string productType { get; set; }
-            public string color { get; set; }
-            public string size { get; set; }
-            public decimal cost { get; set; }
-        }
-        // private OrdersContext db = new OrdersContext();
         private Entities ent = new Entities();
 
         // GET api/Order
@@ -35,8 +25,9 @@ namespace WorkSample.Controllers
             {
                 JsonOrder jsonOrder = new JsonOrder();
                 jsonOrder.color = ent.Colors.FirstOrDefault(c => c.Id == order.Color_Id).Name;
-                jsonOrder.product = ent.Products.FirstOrDefault(p => p.Id == order.Product_Id).Name;
-                jsonOrder.cost = ent.Products.FirstOrDefault(p => p.Id == order.Product_Id).Cost;
+                var prod = ent.Products.FirstOrDefault(p => p.Id == order.Product_Id);
+                jsonOrder.product = prod.Name;
+                jsonOrder.cost = prod.Cost;
                 jsonOrder.productType = ent.ProductTypes.FirstOrDefault(t => t.Id == order.ProductType_Id).Type;
                 jsonOrder.size = ent.Sizes.FirstOrDefault(s => s.Id == order.Size_Id).Category;
                 jsonOrder.orderId = order.Id;
@@ -94,8 +85,9 @@ namespace WorkSample.Controllers
 
         // POST api/Order
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order order)
+        public IHttpActionResult PostOrder(Order data)
         {
+            Order order = new Order();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -136,6 +128,16 @@ namespace WorkSample.Controllers
         private bool OrderExists(int id)
         {
             return ent.Orders.Count(e => e.Id == id) > 0;
+        }
+
+        public class JsonOrder
+        {
+            public int orderId { get; set; }
+            public string product { get; set; }
+            public string productType { get; set; }
+            public string color { get; set; }
+            public string size { get; set; }
+            public decimal cost { get; set; }
         }
     }
 }
