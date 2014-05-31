@@ -167,3 +167,4 @@ C:\Users\Everett\repos\WorkSample2\WorkSample\bin\Microsoft.Owin.Security.Twitte
 C:\Users\Everett\repos\WorkSample2\WorkSample\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Everett\repos\WorkSample2\WorkSample\obj\Debug\WorkSample.dll
 C:\Users\Everett\repos\WorkSample2\WorkSample\obj\Debug\WorkSample.pdb
+C:\Users\Everett\repos\WorkSample2\WorkSample\obj\Debug\WorkSample.csprojResolveAssemblyReference.cache

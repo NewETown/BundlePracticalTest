@@ -14,7 +14,6 @@ namespace WorkSample.Controllers
 {
     public class ProductController : ApiController
     {
-        // private ProductsContext db = new ProductsContext();
         private Entities ent = new Entities();
 
         // GET api/Product
