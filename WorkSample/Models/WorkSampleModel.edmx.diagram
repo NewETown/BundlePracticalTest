@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="23da772eeddb4a899346c2de48f4f0cd" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Color" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Order" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductType" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Size" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_Orders_dbo_Colors_Color_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Orders_dbo_Products_Product_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Orders_dbo_ProductTypes_ProductType_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Orders_dbo_Sizes_Size_Id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
