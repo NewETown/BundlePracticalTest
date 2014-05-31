@@ -106,13 +106,28 @@
             var sizeApi = '@ViewBag.SizeApi';
 
             self.createProduct = function (formElement) {
-                console.log($(formElement));
                 $(formElement).validate();
                 if ($(formElement).valid()) {
-                    //$.post(productApi, $(formElement).serialize(), null, "json")
-                    //    .done(function (p) {
-                    //        self.products.push(p);
-                    //    });
+                    var productArr = {};
+                    productArr["Name"] = $('#productName').val();
+                    productArr["Cost"] = $('#productCost').val();
+                    var productJson = JSON.stringify(productArr);
+                    $.ajax({
+                        type: "POST",
+                        data: productJson,
+                        url: productApi,
+                        contentType: "application/json",
+                        success: function (r) {
+                            var newProd = {
+                                productId: r.Id,
+                                productName: productArr["Name"],
+                                productCost: productArr["Cost"]
+                            };
+                            self.products.push(newProd);
+                            $('#productName').val('');
+                            $('#productCost').val(0.00);
+                        }
+                    });
                 }
             }
 
@@ -125,12 +140,11 @@
                 $(formElement).validate();
                 if ($(formElement).valid()) {
                     var or = {
-                        "product": this.selectedProductCost().productName(),
-                        "cost": this.selectedProductCost().productCost(),
-                        "color": this.selectedProductColor.color(),
-                        "size": this.selectedProductSize.size()
+                        product: this.selectedProductCost().productName,
+                        cost: this.selectedProductCost().productCost,
+                        color: this.selectedProductColor.color(),
+                        size: this.selectedProductSize.size()
                     };
-                    console.log(or);
                     $.ajax({
                         type: "POST",
                         data: orderJson,

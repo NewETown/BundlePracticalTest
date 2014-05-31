@@ -82,7 +82,7 @@ namespace WorkSample.Controllers
 
         // POST api/Product
         [ResponseType(typeof(Product))]
-        public IHttpActionResult PostProduct(Product product)
+        public IHttpActionResult PostProduct([FromBody] Product product)
         {
             if (!ModelState.IsValid)
             {
