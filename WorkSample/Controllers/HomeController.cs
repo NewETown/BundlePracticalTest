@@ -32,11 +32,9 @@ namespace WorkSample.Controllers
             string orderApiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "order", });
             string colorApiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "color", });
             string productApiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "product", });
-            string productTypeApiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "productType", });
             string sizeApiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "size", });
             ViewBag.OrderApi = new Uri(Request.Url, orderApiUri).AbsoluteUri.ToString();
             ViewBag.ProductApi = new Uri(Request.Url, productApiUri).AbsoluteUri.ToString();
-            ViewBag.ProductTypeApi = new Uri(Request.Url, productTypeApiUri).AbsoluteUri.ToString();
             ViewBag.SizeApi = new Uri(Request.Url, sizeApiUri).AbsoluteUri.ToString();
             ViewBag.ColorApi = new Uri(Request.Url, colorApiUri).AbsoluteUri.ToString();
 

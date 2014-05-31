@@ -18,15 +18,12 @@ namespace WorkSample.Models
         public int Id { get; set; }
         public int Color_Id { get; set; }
         public int Product_Id { get; set; }
-        public int ProductType_Id { get; set; }
         public int Size_Id { get; set; }
         
         [JsonIgnore]
         public virtual Color Color { get; set; }
         [JsonIgnore]
         public virtual Product Product { get; set; }
-        [JsonIgnore]
-        public virtual ProductType ProductType { get; set; }
         [JsonIgnore]
         public virtual Size Size { get; set; }
     }

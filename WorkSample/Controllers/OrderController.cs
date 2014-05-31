@@ -28,7 +28,6 @@ namespace WorkSample.Controllers
                 var prod = ent.Products.FirstOrDefault(p => p.Id == order.Product_Id);
                 jsonOrder.product = prod.Name;
                 jsonOrder.cost = prod.Cost;
-                jsonOrder.productType = ent.ProductTypes.FirstOrDefault(t => t.Id == order.ProductType_Id).Type;
                 jsonOrder.size = ent.Sizes.FirstOrDefault(s => s.Id == order.Size_Id).Category;
                 jsonOrder.orderId = order.Id;
                 jsonOrders.Add(jsonOrder);
@@ -134,7 +133,6 @@ namespace WorkSample.Controllers
         {
             public int orderId { get; set; }
             public string product { get; set; }
-            public string productType { get; set; }
             public string color { get; set; }
             public string size { get; set; }
             public decimal cost { get; set; }

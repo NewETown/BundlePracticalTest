@@ -1,14 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="__MigrationHistory">
+<Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="C__MigrationHistory" EntityType="Model.Store.C__MigrationHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Colors" EntityType="Model.Store.Colors" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="Model.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="Model.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sizes" EntityType="Model.Store.Sizes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_dbo_Orders_dbo_Colors_Color_Id" Association="Model.Store.FK_dbo_Orders_dbo_Colors_Color_Id">
+      <End Role="Colors" EntitySet="Colors" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Orders_dbo_Products_Product_Id" Association="Model.Store.FK_dbo_Orders_dbo_Products_Product_Id">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Orders_dbo_Sizes_Size_Id" Association="Model.Store.FK_dbo_Orders_dbo_Sizes_Size_Id">
+      <End Role="Sizes" EntitySet="Sizes" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
       <PropertyRef Name="ContextKey" />
     </Key>
-    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="MigrationId" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="ContextKey" Type="nvarchar" Nullable="false" MaxLength="300" />
     <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" Nullable="false" MaxLength="32" />
   </EntityType>
   <EntityType Name="Colors">
     <Key>
@@ -24,7 +43,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Color_Id" Type="int" Nullable="false" />
     <Property Name="Product_Id" Type="int" Nullable="false" />
-    <Property Name="ProductType_Id" Type="int" Nullable="false" />
     <Property Name="Size_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Products">
@@ -33,15 +51,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ImageURL" Type="nvarchar(max)" />
-    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ProductTypes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ImageURL" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Cost" Type="decimal" Nullable="false" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="Sizes">
     <Key>
@@ -51,8 +62,8 @@
     <Property Name="Category" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK_dbo_Orders_dbo_Colors_Color_Id">
-    <End Role="Colors" Type="Self.Colors" Multiplicity="1" />
-    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <End Role="Colors" Type="Model.Store.Colors" Multiplicity="1" />
+    <End Role="Orders" Type="Model.Store.Orders" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Colors">
         <PropertyRef Name="Id" />
@@ -63,8 +74,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_dbo_Orders_dbo_Products_Product_Id">
-    <End Role="Products" Type="Self.Products" Multiplicity="1" />
-    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <End Role="Products" Type="Model.Store.Products" Multiplicity="1" />
+    <End Role="Orders" Type="Model.Store.Orders" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Products">
         <PropertyRef Name="Id" />
@@ -74,21 +85,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_dbo_Orders_dbo_ProductTypes_ProductType_Id">
-    <End Role="ProductTypes" Type="Self.ProductTypes" Multiplicity="1" />
-    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ProductTypes">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="ProductType_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_dbo_Orders_dbo_Sizes_Size_Id">
-    <End Role="Sizes" Type="Self.Sizes" Multiplicity="1" />
-    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <End Role="Sizes" Type="Model.Store.Sizes" Multiplicity="1" />
+    <End Role="Orders" Type="Model.Store.Orders" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Sizes">
         <PropertyRef Name="Id" />
@@ -98,28 +97,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ModelStoreContainer">
-    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Sizes" EntityType="Self.Sizes" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_dbo_Orders_dbo_Colors_Color_Id" Association="Self.FK_dbo_Orders_dbo_Colors_Color_Id">
-      <End Role="Colors" EntitySet="Colors" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_Orders_dbo_Products_Product_Id" Association="Self.FK_dbo_Orders_dbo_Products_Product_Id">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_Orders_dbo_ProductTypes_ProductType_Id" Association="Self.FK_dbo_Orders_dbo_ProductTypes_ProductType_Id">
-      <End Role="ProductTypes" EntitySet="ProductTypes" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_Orders_dbo_Sizes_Size_Id" Association="Self.FK_dbo_Orders_dbo_Sizes_Size_Id">
-      <End Role="Sizes" EntitySet="Sizes" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

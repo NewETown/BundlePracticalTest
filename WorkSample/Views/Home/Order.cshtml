@@ -11,7 +11,6 @@
         <div class="col-md-1"><strong>Order ID</strong></div>
         <div class="col-md-3"><strong>Product Name</strong></div>
         <div class="col-md-2"><strong>Cost ($)</strong></div>
-        <div class="col-md-2"><strong>Product Type</strong></div>
         <div class="col-md-2"><strong>Color</strong></div>
         <div class="col-md-2"><strong>Size</strong></div>
     </div>
@@ -28,9 +27,6 @@
                 <p data-bind="text: $data.cost"></p>
             </div>
             <div class="col-md-2">
-                <p data-bind="text: $data.productType"></p>
-            </div>
-            <div class="col-md-2">
                 <p data-bind="text: $data.color"></p>
             </div>
             <div class="col-md-1">
@@ -45,30 +41,15 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Add New Product</h2>
-            <form id="addOrder" class="form-inline" role="form" data-bind="submit: createProduct">
+            <form id="addProduct" class="form-inline" role="form" data-bind="submit: createProduct">
                 <div class="form-group">
                     <label class="sr-only" for="productName">Product Name</label>
                     <input type="text" class="form-control" id="productName" placeholder="Enter Product Name">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="productCost">Product Cost</label>
-                    <input type="text" class="form-control" id="productCost" placeholder="Enter Product Cost">
+                    <label>Cost $</label><input type="number" class="form-control" id="productCost" min="0.00" max="100.00" step="0.1">
                 </div>
-                <select class="form-control">
-                    <option value="" disabled selected>Product Type</option>
-                    <!-- ko foreach: productTypes -->
-                    <option data-bind="text: $data.type"></option>
-                    <!-- /ko -->
-                </select>
-                <select class="form-control">
-                    <option value="" disabled selected>Product Color</option>
-                    <!-- ko foreach: productColors -->
-                    <option data-bind="text: $data.color"></option>
-                    <!-- /ko -->
-                </select>
-                <div class="form-group">
-                    <input type="submit" value="Save" />
-                </div>
+                <input type="submit" value="Add" />
             </form>
         </div>
     </div>
@@ -76,16 +57,12 @@
         <div class="col-md-12">
             <h2>Add New Order</h2>
             <form id="addOrder" class="form-inline" role="form" data-bind="submit: createOrder">
+                <select class="form-control" data-bind="options: products, optionsText: 'productName', optionsCaption: 'Product Name', value: selectedProductCost"></select>
+                <label>$</label><label data-bind="text: selectedProductCost() ? selectedProductCost().productCost : '0.00'"></label>
+                <select class="form-control" data-bind="options: productColors, optionsText: 'color', optionsCaption: 'Product Color', value: selectedProductColor"></select>
+                <select class="form-control" data-bind="options: productSizes, optionsText: 'size', optionsCaption: 'Product Size', value: selectedProductSize"></select>
                 <div class="form-group">
-                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="exampleInputPassword2">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" />
+                    <input type="submit" value="Add" />
                 </div>
             </form>
         </div>
@@ -95,7 +72,22 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        // View-model will go here
+        var Product = function (data) {
+            this.productId = data.id;
+            this.productName = ko.observable(data.name);
+            this.productCost = ko.observable(data.cost);
+        };
+
+        var Color = function (data) {
+            this.colorId = data.id;
+            this.color = ko.observable(data.color);
+        };
+
+        var Size = function (data) {
+            this.sizeId = data.id;
+            this.size = ko.observable(data.size);
+        };
+
         function OrderViewModel() {
             var self = this;
             self.orders = ko.observableArray();
@@ -103,28 +95,48 @@
             self.productTypes = ko.observableArray();
             self.productSizes = ko.observableArray();
             self.products = ko.observableArray();
+            self.selectedProductCost = ko.observable("0.00");
+            self.selectedProductSize = '';
+            self.selectedProductColor = '';
+            self.selectedProductType = '';
 
             var orderApi = '@ViewBag.OrderApi';
             var productApi = '@ViewBag.ProductApi';
-            var productTypeApi = '@ViewBag.ProductTypeApi';
             var colorApi = '@ViewBag.ColorApi';
             var sizeApi = '@ViewBag.SizeApi';
 
             self.createProduct = function (formElement) {
+                console.log($(formElement));
                 $(formElement).validate();
                 if ($(formElement).valid()) {
-                    $.post(orderApi, $(formElement).serialize(), null, "json")
-                        .done(function (o) {
-                            self.orders.push(o);
-                        });
+                    //$.post(productApi, $(formElement).serialize(), null, "json")
+                    //    .done(function (p) {
+                    //        self.products.push(p);
+                    //    });
                 }
             }
 
             self.createOrder = function (formElement) {
-                $.post(orderApi, $(formElement).serialize(), null, "json")
-                    .done(function (o) {
-                        self.orders.push(o);
-                    });
+                var orderArr = {};
+                orderArr["productId"] = this.selectedProductCost().productId;
+                orderArr["productColorId"] = this.selectedProductColor.colorId;
+                orderArr["productSizeId"] = this.selectedProductSize.sizeId;
+                var orderJson = JSON.stringify(orderArr, null, 2);
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(orderApi, orderJson, null, "json")
+                        .done(function (o) {
+                            var or = {
+                                "orderId": o.orderId,
+                                "product": this.selectedProductCost().productName(),
+                                "cost": this.selectedProductCost().productCost(),
+                                "color": this.selectedProductColor.color(),
+                                "size": this.selectedProductSize.size()
+                            }
+                            self.orders.push(or);
+                        });
+                }
+
             }
 
             self.update = function (order) {
@@ -138,10 +150,19 @@
             }
 
             $.getJSON(orderApi, self.orders);
-            $.getJSON(productApi, self.products);
-            $.getJSON(productTypeApi, self.productTypes);
-            $.getJSON(colorApi, self.productColors);
-            $.getJSON(sizeApi, self.productSizes);
+
+            $.getJSON(productApi, function (allData) {
+                var mappedProducts = $.map(allData, function (p) { return new Product(p) });
+                self.products(mappedProducts);
+            });
+            $.getJSON(colorApi, function (allData) {
+                var mappedColors = $.map(allData, function (c) { return new Color(c) });
+                self.productColors(mappedColors);
+            });
+            $.getJSON(sizeApi, function (allData) {
+                var mappedSizes = $.map(allData, function (s) { return new Size(s) });
+                self.productSizes(mappedSizes);
+            });
         }
 
         $(document).ready(function () {

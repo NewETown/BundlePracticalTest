@@ -29,7 +29,6 @@ namespace WorkSample.Models
         public virtual DbSet<Color> Colors { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Size> Sizes { get; set; }
     }
 }

@@ -181,7 +181,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\ProductTypeController.cs" />
     <Compile Include="Controllers\SizeController.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>WorkSampleDB.tt</DependentUpon>
@@ -195,9 +194,6 @@
       <DependentUpon>WorkSampleDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>WorkSampleDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductType.cs">
       <DependentUpon>WorkSampleDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +226,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\WorkSampleModel.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
