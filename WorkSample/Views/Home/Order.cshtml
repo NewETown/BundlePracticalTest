@@ -118,23 +118,29 @@
 
             self.createOrder = function (formElement) {
                 var orderArr = {};
-                orderArr["productId"] = this.selectedProductCost().productId;
-                orderArr["productColorId"] = this.selectedProductColor.colorId;
-                orderArr["productSizeId"] = this.selectedProductSize.sizeId;
+                orderArr["Product_Id"] = this.selectedProductCost().productId;
+                orderArr["Color_Id"] = this.selectedProductColor.colorId;
+                orderArr["Size_Id"] = this.selectedProductSize.sizeId;
                 var orderJson = JSON.stringify(orderArr, null, 2);
                 $(formElement).validate();
                 if ($(formElement).valid()) {
-                    $.post(orderApi, orderJson, null, "json")
-                        .done(function (o) {
-                            var or = {
-                                "orderId": o.orderId,
-                                "product": this.selectedProductCost().productName(),
-                                "cost": this.selectedProductCost().productCost(),
-                                "color": this.selectedProductColor.color(),
-                                "size": this.selectedProductSize.size()
-                            }
+                    var or = {
+                        "product": this.selectedProductCost().productName(),
+                        "cost": this.selectedProductCost().productCost(),
+                        "color": this.selectedProductColor.color(),
+                        "size": this.selectedProductSize.size()
+                    };
+                    console.log(or);
+                    $.ajax({
+                        type: "POST",
+                        data: orderJson,
+                        url: orderApi,
+                        contentType: "application/json",
+                        success: function (o) {
+                            or["orderId"] = o.Id;
                             self.orders.push(or);
-                        });
+                        }
+                    });
                 }
 
             }
@@ -145,7 +151,7 @@
 
             self.remove = function (order) {
                 // Remove from the server first
-                $.ajax({ type: "DELETE", url: orderApi + '/' + order.Id })
+                $.ajax({ type: "DELETE", url: orderApi + '/' + order.orderId })
                     .done(function () { self.orders.remove(order); });
             }
 

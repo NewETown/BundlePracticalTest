@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -84,9 +85,8 @@ namespace WorkSample.Controllers
 
         // POST api/Order
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order data)
+        public IHttpActionResult PostOrder([FromBody] Order order)
         {
-            Order order = new Order();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
